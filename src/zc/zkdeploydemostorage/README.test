@@ -50,6 +50,7 @@ The recipe output a demo-storage configuration::
            monitor-server ${deployment:run-directory}/monitor.sock
          </zookeeper>
     <BLANKLINE>
+         %import zc.zkzeo
          %import zc.beforestorage
          %import zc.zlibstorage
     <BLANKLINE>
@@ -58,11 +59,12 @@ The recipe output a demo-storage configuration::
               before 2012-08-22
     <BLANKLINE>
               <zkzeoclient>
+                 read-only true
+                 server /some/path
                  zookeeper zookeeper:2181
                  client before
-                 cache_size 100MB
+                 cache-size 100MB
                  var /home/databases/databases/main/2012-08-22
-                 server /some/path
                  blob-dir /home/databases/databases/main/2012-08-22/before.blobs
       blob-cache-size 100MB
               </zkzeoclient>
@@ -76,12 +78,8 @@ The recipe output a demo-storage configuration::
            </zlibstorage>
          </demostorage>
     <BLANKLINE>
-         %import zc.monitorlogstats
          <eventlog>
              level INFO
-             <counter>
-                format %(name)s %(message)s
-             </counter>
              <logfile>
                 path STDOUT
              </logfile>
@@ -137,6 +135,7 @@ provide an alternative ZooKeeper server::
            monitor-server ${deployment:run-directory}/monitor.sock
          </zookeeper>
     <BLANKLINE>
+         %import zc.zkzeo
          %import zc.beforestorage
          %import zc.zlibstorage
     <BLANKLINE>
@@ -145,11 +144,12 @@ provide an alternative ZooKeeper server::
               before 2012-08-22
     <BLANKLINE>
               <zkzeoclient>
+                 read-only true
+                 server /some/path
                  zookeeper zookeeper.example.com:2181
                  client before
-                 cache_size 100MB
+                 cache-size 100MB
                  var /home/databases/databases/main/2012-08-22
-                 server /some/path
     <BLANKLINE>
               </zkzeoclient>
            </before>
@@ -162,12 +162,8 @@ provide an alternative ZooKeeper server::
            </zlibstorage>
          </demostorage>
     <BLANKLINE>
-         %import zc.monitorlogstats
          <eventlog>
              level INFO
-             <counter>
-                format %(name)s %(message)s
-             </counter>
              <logfile>
                 path STDOUT
              </logfile>

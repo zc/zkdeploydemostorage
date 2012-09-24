@@ -72,8 +72,6 @@ class ZKRecipe(zc.metarecipe.Recipe):
             )
 
 
-
-
 zeo_conf = """
    <zeo>
       address :0
@@ -87,6 +85,7 @@ zeo_conf = """
      monitor-server ${deployment:run-directory}/monitor.sock
    </zookeeper>
 
+   %%import zc.zkzeo
    %%import zc.beforestorage
    %%import zc.zlibstorage
 
@@ -95,11 +94,12 @@ zeo_conf = """
         before %(before)s
 
         <zkzeoclient>
+           read-only true
+           server %(source_path)s
            zookeeper %(zookeeper)s
            client before
-           cache_size 100MB
+           cache-size 100MB
            var %(ddir)s
-           server %(source_path)s
            %(zblob)s
         </zkzeoclient>
      </before>
@@ -112,12 +112,8 @@ zeo_conf = """
      </zlibstorage>
    </demostorage>
 
-   %%import zc.monitorlogstats
    <eventlog>
        level INFO
-       <counter>
-          format %%(name)s %%(message)s
-       </counter>
        <logfile>
           path STDOUT
        </logfile>
