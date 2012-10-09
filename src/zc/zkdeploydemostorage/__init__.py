@@ -27,7 +27,7 @@ class ZKRecipe(zc.metarecipe.Recipe):
 
         before = zk_options['before']
         source_path = zk_options['path']
-        source_zookeeoper = zk_options.get('zookeeper', 'zookeeper:2181')
+        source_zookeeper = zk_options.get('zookeeper', 'zookeeper:2181')
         blobs = zk_options.get('blobs', True)
 
         ddir = '/home/databases'+path+'/'+before
@@ -46,7 +46,7 @@ class ZKRecipe(zc.metarecipe.Recipe):
                 'zeo.conf': zeo_conf % dict(
                     ddir = ddir,
                     before = before,
-                    zookeeper = source_zookeeoper,
+                    zookeeper = source_zookeeper,
                     source_path = source_path,
                     zblob = (
                         'blob-dir %s/before.blobs\nblob-cache-size 100MB' % ddir
